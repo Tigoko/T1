@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tilahun Personal Finance System</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f3f5f9;
+    color:#222;
+}
+
+/* LOGIN */
+
+#loginPage{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:url("a.png") center/cover no-repeat;
+    padding:20px;
+}
+
+.login-box{
+    width:100%;
+    max-width:380px;
+    padding:35px 25px;
+    border-radius:20px;
+    background:rgba(255,255,255,.92);
+    box-shadow:0 10px 40px #0005;
+    text-align:center;
+}
+
+.login-box h1{
+    color:#153d67;
+    margin-bottom:10px;
+}
+
+.login-box p{
+    color:#777;
+    margin-bottom:25px;
+}
+
+input,textarea,select{
+    width:100%;
+    padding:13px;
+    border:1px solid #ddd;
+    border-radius:9px;
+    margin:8px 0;
+    outline:none;
+    font-size:15px;
+}
+
+input:focus,textarea:focus{
+    border-color:#1769aa;
+}
+
+button{
+    cursor:pointer;
+    border:none;
+    border-radius:8px;
+    padding:12px 17px;
+    font-size:14px;
+}
+
+.login-btn{
+    width:100%;
+    background:#1769aa;
+    color:white;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+/* WEBSITE */
+
+#website{
+    display:none;
+}
+
+/* HEADER */
+
+.header{
+    height:65px;
+    background:#123b67;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 20px;
+}
+
+.header h2{
+    font-size:18px;
+}
+
+.menu-btn{
+    background:#ffffff25;
+    color:white;
+    font-size:22px;
+}
+
+/* SIDEBAR */
+
+.layout{
+    display:flex;
+    min-height:calc(100vh - 65px);
+}
+
+.sidebar{
+    width:240px;
+    background:#102d4d;
+    color:white;
+    padding:20px 12px;
+    flex-shrink:0;
+}
+
+.sidebar h3{
+    padding:15px 10px;
+    margin-bottom:15px;
+    color:#8dc8ff;
+}
+
+.sidebar button{
+    display:block;
+    width:100%;
+    background:transparent;
+    color:white;
+    text-align:left;
+    margin:5px 0;
+    padding:14px;
+    font-size:14px;
+}
+
+.sidebar button:hover,
+.sidebar button.active{
+    background:#1769aa;
+}
+
+/* MAIN */
+
+.main{
+    flex:1;
+    min-width:0;
+    padding:22px;
+    background:#f3f5f9;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.home-banner{
+    min-height:220px;
+    border-radius:18px;
+    padding:30px;
+    color:white;
+    background:
+    linear-gradient(#071b35a8,#071b35a8),
+    url("1.jpg") center/cover;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    margin-bottom:25px;
+}
+
+.home-banner h1{
+    font-size:28px;
+    margin-bottom:12px;
+}
+
+.home-banner p{
+    font-size:15px;
+}
+
+/* CARDS */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.card{
+    background:white;
+    padding:22px 16px;
+    border-radius:13px;
+    box-shadow:0 3px 12px #0000000d;
+    border-left:4px solid #1769aa;
+}
+
+.card:nth-child(2){
+    border-color:#159b75;
+}
+
+.card:nth-child(3){
+    border-color:#e69a24;
+}
+
+.card:nth-child(4){
+    border-color:#8755c7;
+}
+
+.card p{
+    color:#777;
+    font-size:13px;
+    margin-bottom:12px;
+}
+
+.card h2{
+    font-size:22px;
+    color:#153d67;
+}
+
+/* SECTION */
+
+.section{
+    background:white;
+    padding:22px;
+    border-radius:14px;
+    margin-bottom:20px;
+    box-shadow:0 3px 12px #0000000b;
+}
+
+.section h2{
+    font-size:20px;
+    color:#153d67;
+    margin-bottom:18px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.form-group label{
+    font-size:13px;
+    color:#555;
+    font-weight:bold;
+}
+
+.primary{
+    background:#1769aa;
+    color:white;
+    margin-top:12px;
+}
+
+.success{
+    background:#159b75;
+    color:white;
+}
+
+.danger{
+    background:#e74c3c;
+    color:white;
+}
+
+.warning{
+    background:#e69a24;
+    color:white;
+}
+
+.secondary{
+    background:#667788;
+    color:white;
+}
+
+/* TABLE */
+
+.table-wrap{
+    width:100%;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:650px;
+}
+
+th,td{
+    padding:13px 10px;
+    border-bottom:1px solid #eee;
+    text-align:left;
+    font-size:13px;
+}
+
+th{
+    background:#edf3fa;
+    color:#153d67;
+}
+
+.action{
+    padding:7px 10px;
+    margin:2px;
+    font-size:12px;
+}
+
+.search{
+    margin-bottom:15px;
+}
+
+/* CALCULATOR */
+
+.calculator{
+    width:100%;
+    max-width:360px;
+    margin:auto;
+    padding:20px;
+    background:#15283e;
+    border-radius:20px;
+    box-shadow:0 10px 30px #0003;
+}
+
+.calc-display{
+    width:100%;
+    height:75px;
+    background:#e9f2f9;
+    border:none;
+    border-radius:10px;
+    text-align:right;
+    padding:15px;
+    font-size:28px;
+    margin-bottom:15px;
+}
+
+.calc-buttons{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:9px;
+}
+
+.calc-buttons button{
+    height:60px;
+    font-size:20px;
+    background:#29415d;
+    color:white;
+}
+
+.calc-buttons button.operator{
+    background:#1769aa;
+}
+
+.calc-buttons button.equal{
+    background:#159b75;
+}
+
+.calc-buttons button.clear{
+    background:#e74c3c;
+}
+
+/* SETTINGS */
+
+.settings-box{
+    max-width:450px;
+}
+
+/* MOBILE */
+
+@media(max-width:850px){
+
+    .sidebar{
+        width:200px;
+    }
+
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:600px){
+
+    .layout{
+        display:block;
+    }
+
+    .sidebar{
+        width:100%;
+        display:none;
+        padding:10px;
+    }
+
+    .sidebar.show{
+        display:block;
+    }
+
+    .main{
+        padding:12px;
+    }
+
+    .header{
+        padding:0 12px;
+    }
+
+    .header h2{
+        font-size:14px;
+    }
+
+    .cards{
+        grid-template-columns:1fr 1fr;
+        gap:9px;
+    }
+
+    .card{
+        padding:16px 10px;
+    }
+
+    .card h2{
+        font-size:17px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .home-banner{
+        min-height:190px;
+        padding:20px;
+    }
+
+    .home-banner h1{
+        font-size:23px;
+    }
+
+}
+
+.footer{
+    text-align:center;
+    padding:20px;
+    color:#999;
+    font-size:12px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div id="loginPage">
+
+    <div class="login-box">
+
+        <h1>TILAHUN</h1>
+
+        <p>Personal Finance Management</p>
+
+        <input id="loginUsername"
+        placeholder="Username">
+
+        <input id="loginPassword"
+        type="password"
+        placeholder="Password">
+
+        <button class="login-btn" onclick="login()">
+            LOGIN
+        </button>
+
+        <p id="loginError" style="color:red;margin-top:15px"></p>
+
+    </div>
+
+</div>
+
+
+<!-- WEBSITE -->
+
+<div id="website">
+
+    <div class="header">
+
+        <h2>TILAHUN FINANCE SYSTEM</h2>
+
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+    </div>
+
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+
+        <div class="sidebar" id="sidebar">
+
+            <h3>MAIN MENU</h3>
+
+            <button class="active" onclick="openPage('home',this)">
+                🏠 Home
+            </button>
+
+            <button onclick="openPage('loan',this)">
+                💰 Loan Management
+            </button>
+
+            <button onclick="openPage('income',this)">
+                📈 Income
+            </button>
+
+            <button onclick="openPage('output',this)">
+                📉 Output / Expenses
+            </button>
+
+            <button onclick="openPage('calculator',this)">
+                🧮 Calculator
+            </button>
+
+            <button onclick="openPage('settings',this)">
+                ⚙️ Edit Account
+            </button>
+
+            <button onclick="logout()">
+                🚪 Logout
+            </button>
+
+        </div>
+
+
+        <!-- MAIN CONTENT -->
+
+        <div class="main">
+
+
+            <!-- HOME -->
+
+            <div class="page active" id="home">
+
+                <div class="home-banner">
+
+                    <h1>Welcome, Tilahun 👋</h1>
+
+                    <p>Manage your personal money easily.</p>
+
+                    <br>
+
+                    <h3 id="homeDate"></h3>
+
+                </div>
+
+
+                <div class="cards">
+
+                    <div class="card">
+                        <p>Total Borrowers</p>
+                        <h2 id="homeBorrowers">0</h2>
+                    </div>
+
+                    <div class="card">
+                        <p>Total Loan</p>
+                        <h2 id="homeLoan">0</h2>
+                    </div>
+
+                    <div class="card">
+                        <p>Total Income</p>
+                        <h2 id="homeIncome">0</h2>
+                    </div>
+
+                    <div class="card">
+                        <p>Total Expenses</p>
+                        <h2 id="homeOutput">0</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="section">
+
+                    <h2>Financial Summary</h2>
+
+                    <h3 id="balance">Balance: 0 Birr</h3>
+
+                    <br>
+
+                    <p id="currentDate"></p>
+
+                </div>
+
+            </div>
+
+
+            <!-- LOAN -->
+
+            <div class="page" id="loan">
+
+                <div class="section">
+
+                    <h2>💰 Loan Management</h2>
+
+                    <form id="loanForm">
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+                                <label>Borrower's Name</label>
+                                <input id="loanName"
+                                placeholder="Enter name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Loan Amount (Birr)</label>
+                                <input id="loanAmount"
+                                type="number"
+                                min="0.01"
+                                step="0.01"
+                                placeholder="Enter amount" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Description</label>
+                                <input id="loanDescription"
+                                placeholder="Optional description">
+                            </div>
+
+                        </div>
+
+                        <p id="loanDatePreview"
+                        style="color:#159b75;margin-top:12px"></p>
+
+                        <button class="primary" type="submit">
+                            SAVE LOAN
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <div class="section">
+
+                    <h2>Loan Records</h2>
+
+                    <input class="search"
+                    id="loanSearch"
+                    placeholder="Search borrower..."
+                    oninput="displayLoans()">
+
+                    <div class="table-wrap">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th>Amount</th>
+                                    <th>Date (EC)</th>
+                                    <th>Description</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="loanTable"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- INCOME -->
+
+            <div class="page" id="income">
+
+                <div class="section">
+
+                    <h2>📈 Income Management</h2>
+
+                    <form id="incomeForm">
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input id="incomeName"
+                                placeholder="Income name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Income Amount (Birr)</label>
+                                <input id="incomeAmount"
+                                type="number"
+                                min="0.01"
+                                step="0.01"
+                                placeholder="Amount" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Description</label>
+                                <input id="incomeDescription"
+                                placeholder="Optional">
+                            </div>
+
+                        </div>
+
+                        <p id="incomeDatePreview"
+                        style="color:#159b75;margin-top:12px"></p>
+
+                        <button class="success" type="submit">
+                            SAVE INCOME
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <div class="section">
+
+                    <h2>Income Records</h2>
+
+                    <input class="search"
+                    id="incomeSearch"
+                    placeholder="Search income..."
+                    oninput="displayIncome()">
+
+                    <div class="table-wrap">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th>Amount</th>
+                                    <th>Date (EC)</th>
+                                    <th>Description</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="incomeTable"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- OUTPUT -->
+
+            <div class="page" id="output">
+
+                <div class="section">
+
+                    <h2>📉 Output / Expenses</h2>
+
+                    <form id="outputForm">
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input id="outputName"
+                                placeholder="Expense name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Expense Amount (Birr)</label>
+                                <input id="outputAmount"
+                                type="number"
+                                min="0.01"
+                                step="0.01"
+                                placeholder="Amount" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Description</label>
+                                <input id="outputDescription"
+                                placeholder="Optional">
+                            </div>
+
+                        </div>
+
+                        <p id="outputDatePreview"
+                        style="color:#159b75;margin-top:12px"></p>
+
+                        <button class="danger" type="submit">
+                            SAVE EXPENSE
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <div class="section">
+
+                    <h2>Expense Records</h2>
+
+                    <input class="search"
+                    id="outputSearch"
+                    placeholder="Search expense..."
+                    oninput="displayOutput()">
+
+                    <div class="table-wrap">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th>Amount</th>
+                                    <th>Date (EC)</th>
+                                    <th>Description</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="outputTable"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CALCULATOR -->
+
+            <div class="page" id="calculator">
+
+                <div class="section">
+
+                    <h2>🧮 Calculator</h2>
+
+                    <div class="calculator">
+
+                        <input class="calc-display"
+                        id="calcDisplay"
+                        value="0"
+                        readonly>
+
+                        <div class="calc-buttons">
+
+                            <button class="clear"
+                            onclick="clearCalc()">AC</button>
+
+                            <button class="operator"
+                            onclick="calcInput('%')">%</button>
+
+                            <button class="operator"
+                            onclick="deleteCalc()">⌫</button>
+
+                            <button class="operator"
+                            onclick="calcInput('/')">÷</button>
+
+                            <button onclick="calcInput('7')">7</button>
+                            <button onclick="calcInput('8')">8</button>
+                            <button onclick="calcInput('9')">9</button>
+
+                            <button class="operator"
+                            onclick="calcInput('*')">×</button>
+
+                            <button onclick="calcInput('4')">4</button>
+                            <button onclick="calcInput('5')">5</button>
+                            <button onclick="calcInput('6')">6</button>
+
+                            <button class="operator"
+                            onclick="calcInput('-')">−</button>
+
+                            <button onclick="calcInput('1')">1</button>
+                            <button onclick="calcInput('2')">2</button>
+                            <button onclick="calcInput('3')">3</button>
+
+                            <button class="operator"
+                            onclick="calcInput('+')">+</button>
+
+                            <button onclick="calcInput('0')">0</button>
+                            <button onclick="calcInput('.')">.</button>
+
+                            <button onclick="calcInput('00')">00</button>
+
+                            <button class="equal"
+                            onclick="calculate()">=</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SETTINGS -->
+
+            <div class="page" id="settings">
+
+                <div class="section settings-box">
+
+                    <h2>⚙️ Account Settings</h2>
+
+                    <label>New Username</label>
+
+                    <input id="newUsername"
+                    placeholder="New username">
+
+                    <label>New Password</label>
+
+                    <input id="newPassword"
+                    type="password"
+                    placeholder="New password">
+
+                    <button class="primary"
+                    onclick="updateAccount()">
+                        SAVE CHANGES
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer">
+                TILAHUN PERSONAL FINANCE SYSTEM © 2026
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* ACCOUNT */
+
+let account = JSON.parse(
+    localStorage.getItem("tilahunAccount")
+) || {
+    username:"Tilahun",
+    password:"2336"
+};
+
+
+/* DATA */
+
+let loans = JSON.parse(
+    localStorage.getItem("tilahunLoans")
+) || [];
+
+let incomes = JSON.parse(
+    localStorage.getItem("tilahunIncomes")
+) || [];
+
+let outputs = JSON.parse(
+    localStorage.getItem("tilahunOutputs")
+) || [];
+
+
+/* ETHIOPIAN CALENDAR */
+
+function getEthiopianDate(){
+
+    const now = new Date();
+
+    const formatter = new Intl.DateTimeFormat(
+        "en-u-ca-ethiopic-nu-latn",
+        {
+            day:"2-digit",
+            month:"2-digit",
+            year:"numeric",
+            timeZone:"Africa/Addis_Ababa"
+        }
+    );
+
+    const parts = formatter.formatToParts(now);
+
+    let day = parts.find(x=>x.type==="day").value;
+
+    let month = parts.find(x=>x.type==="month").value;
+
+    let year = parts.find(x=>x.type==="year").value;
+
+    return day+"/"+month+"/"+year+" EC";
+
+}
+
+
+/* LOGIN */
+
+function login(){
+
+    let username =
+    document.getElementById("loginUsername").value;
+
+    let password =
+    document.getElementById("loginPassword").value;
+
+    if(username===account.username &&
+       password===account.password){
+
+        document.getElementById("loginPage").style.display="none";
+
+        document.getElementById("website").style.display="block";
+
+        loadAll();
+
+    }else{
+
+        document.getElementById("loginError").innerText=
+        "Incorrect username or password!";
+
+    }
+
+}
+
+
+/* LOGOUT */
+
+function logout(){
+
+    document.getElementById("website").style.display="none";
+
+    document.getElementById("loginPage").style.display="flex";
+
+    document.getElementById("loginPassword").value="";
+
+}
+
+
+/* NAVIGATION */
+
+function openPage(id,button){
+
+    document.querySelectorAll(".page").forEach(p=>{
+        p.classList.remove("active");
+    });
+
+    document.getElementById(id).classList.add("active");
+
+    document.querySelectorAll(".sidebar button").forEach(b=>{
+        b.classList.remove("active");
+    });
+
+    if(button){
+        button.classList.add("active");
+    }
+
+    document.getElementById("sidebar").classList.remove("show");
+
+    if(id==="home"){
+        updateDashboard();
+    }
+
+}
+
+
+/* MENU */
+
+function toggleMenu(){
+
+    document.getElementById("sidebar").classList.toggle("show");
+
+}
+
+
+/* ACCOUNT UPDATE */
+
+function updateAccount(){
+
+    let u=document.getElementById("newUsername").value.trim();
+
+    let p=document.getElementById("newPassword").value;
+
+    if(!u || !p){
+
+        alert("Enter username and password!");
+
+        return;
+
+    }
+
+    if(p.length<4){
+
+        alert("Password must contain at least 4 characters!");
+
+        return;
+
+    }
+
+    account.username=u;
+
+    account.password=p;
+
+    localStorage.setItem(
+        "tilahunAccount",
+        JSON.stringify(account)
+    );
+
+    alert("Account updated successfully!");
+
+    document.getElementById("newPassword").value="";
+
+}
+
+
+/* SAVE FUNCTIONS */
+
+function saveLoans(){
+
+    localStorage.setItem(
+        "tilahunLoans",
+        JSON.stringify(loans)
+    );
+
+    loadAll();
+
+}
+
+function saveIncomes(){
+
+    localStorage.setItem(
+        "tilahunIncomes",
+        JSON.stringify(incomes)
+    );
+
+    loadAll();
+
+}
+
+function saveOutputs(){
+
+    localStorage.setItem(
+        "tilahunOutputs",
+        JSON.stringify(outputs)
+    );
+
+    loadAll();
+
+}
+
+
+/* LOAN SAVE */
+
+document.getElementById("loanForm").addEventListener(
+"submit",function(e){
+
+    e.preventDefault();
+
+    let name=document.getElementById("loanName").value.trim();
+
+    let amount=Number(document.getElementById("loanAmount").value);
+
+    let description=document.getElementById("loanDescription").value.trim();
+
+    if(!name || !Number.isFinite(amount) || amount<=0){
+
+        alert("Please enter valid information!");
+
+        return;
+
+    }
+
+    loans.push({
+
+        id:Date.now(),
+
+        name:name,
+
+        amount:amount,
+
+        date:getEthiopianDate(),
+
+        timestamp:Date.now(),
+
+        description:description
+
+    });
+
+    saveLoans();
+
+    this.reset();
+
+    alert("Loan saved successfully!");
+
+});
+
+
+/* INCOME SAVE */
+
+document.getElementById("incomeForm").addEventListener(
+"submit",function(e){
+
+    e.preventDefault();
+
+    let name=document.getElementById("incomeName").value.trim();
+
+    let amount=Number(document.getElementById("incomeAmount").value);
+
+    let description=document.getElementById("incomeDescription").value.trim();
+
+    if(!name || !Number.isFinite(amount) || amount<=0){
+
+        alert("Please enter valid information!");
+
+        return;
+
+    }
+
+    incomes.push({
+
+        id:Date.now(),
+
+        name:name,
+
+        amount:amount,
+
+        date:getEthiopianDate(),
+
+        timestamp:Date.now(),
+
+        description:description
+
+    });
+
+    saveIncomes();
+
+    this.reset();
+
+    alert("Income saved successfully!");
+
+});
+
+
+/* OUTPUT SAVE */
+
+document.getElementById("outputForm").addEventListener(
+"submit",function(e){
+
+    e.preventDefault();
+
+    let name=document.getElementById("outputName").value.trim();
+
+    let amount=Number(document.getElementById("outputAmount").value);
+
+    let description=document.getElementById("outputDescription").value.trim();
+
+    if(!name || !Number.isFinite(amount) || amount<=0){
+
+        alert("Please enter valid information!");
+
+        return;
+
+    }
+
+    outputs.push({
+
+        id:Date.now(),
+
+        name:name,
+
+        amount:amount,
+
+        date:getEthiopianDate(),
+
+        timestamp:Date.now(),
+
+        description:description
+
+    });
+
+    saveOutputs();
+
+    this.reset();
+
+    alert("Expense saved successfully!");
+
+});
+
+
+/* TABLE HELPER */
+
+function escapeHTML(value){
+
+    return String(value ?? "").replace(/[&<>"']/g,c=>({
+
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+
+    }[c]));
+
+}
+
+
+/* LOAN TABLE */
+
+function displayLoans(){
+
+    let search=document.getElementById("loanSearch").value.toLowerCase();
+
+    let table=document.getElementById("loanTable");
+
+    table.innerHTML="";
+
+    let data=loans.filter(x=>
+        x.name.toLowerCase().includes(search)
+    );
+
+    if(!data.length){
+
+        table.innerHTML=
+        `<tr><td colspan="6">No loan records found.</td></tr>`;
+
+        return;
+
+    }
+
+    data.forEach((x,i)=>{
+
+        table.innerHTML+=`
+
+        <tr>
+
+            <td>${i+1}</td>
+
+            <td>${escapeHTML(x.name)}</td>
+
+            <td>${Number(x.amount).toLocaleString()} Birr</td>
+
+            <td>${escapeHTML(x.date)}</td>
+
+            <td>${escapeHTML(x.description)}</td>
+
+            <td>
+
+                <button class="danger action"
+                onclick="deleteRecord('loan',${x.id})">
+                Delete
+                </button>
+
+            </td>
+
+        </tr>`;
+
+    });
+
+}
+
+
+/* INCOME TABLE */
+
+function displayIncome(){
+
+    let search=document.getElementById("incomeSearch").value.toLowerCase();
+
+    let table=document.getElementById("incomeTable");
+
+    table.innerHTML="";
+
+    let data=incomes.filter(x=>
+        x.name.toLowerCase().includes(search)
+    );
+
+    if(!data.length){
+
+        table.innerHTML=
+        `<tr><td colspan="6">No income records found.</td></tr>`;
+
+        return;
+
+    }
+
+    data.forEach((x,i)=>{
+
+        table.innerHTML+=`
+
+        <tr>
+
+            <td>${i+1}</td>
+
+            <td>${escapeHTML(x.name)}</td>
+
+            <td>${Number(x.amount).toLocaleString()} Birr</td>
+
+            <td>${escapeHTML(x.date)}</td>
+
+            <td>${escapeHTML(x.description)}</td>
+
+            <td>
+
+                <button class="danger action"
+                onclick="deleteRecord('income',${x.id})">
+                Delete
+                </button>
+
+            </td>
+
+        </tr>`;
+
+    });
+
+}
+
+
+/* OUTPUT TABLE */
+
+function displayOutput(){
+
+    let search=document.getElementById("outputSearch").value.toLowerCase();
+
+    let table=document.getElementById("outputTable");
+
+    table.innerHTML="";
+
+    let data=outputs.filter(x=>
+        x.name.toLowerCase().includes(search)
+    );
+
+    if(!data.length){
+
+        table.innerHTML=
+        `<tr><td colspan="6">No expense records found.</td></tr>`;
+
+        return;
+
+    }
+
+    data.forEach((x,i)=>{
+
+        table.innerHTML+=`
+
+        <tr>
+
+            <td>${i+1}</td>
+
+            <td>${escapeHTML(x.name)}</td>
+
+            <td>${Number(x.amount).toLocaleString()} Birr</td>
+
+            <td>${escapeHTML(x.date)}</td>
+
+            <td>${escapeHTML(x.description)}</td>
+
+            <td>
+
+                <button class="danger action"
+                onclick="deleteRecord('output',${x.id})">
+                Delete
+                </button>
+
+            </td>
+
+        </tr>`;
+
+    });
+
+}
+
+
+/* DELETE */
+
+function deleteRecord(type,id){
+
+    if(!confirm("Delete this record?")) return;
+
+    if(type==="loan"){
+
+        loans=loans.filter(x=>x.id!==id);
+
+        saveLoans();
+
+    }
+
+    if(type==="income"){
+
+        incomes=incomes.filter(x=>x.id!==id);
+
+        saveIncomes();
+
+    }
+
+    if(type==="output"){
+
+        outputs=outputs.filter(x=>x.id!==id);
+
+        saveOutputs();
+
+    }
+
+}
+
+
+/* DASHBOARD */
+
+function updateDashboard(){
+
+    let totalLoan=loans.reduce((s,x)=>s+Number(x.amount),0);
+
+    let totalIncome=incomes.reduce((s,x)=>s+Number(x.amount),0);
+
+    let totalOutput=outputs.reduce((s,x)=>s+Number(x.amount),0);
+
+    let balance=totalIncome-totalOutput;
+
+    document.getElementById("homeBorrowers").innerText=loans.length;
+
+    document.getElementById("homeLoan").innerText=
+    totalLoan.toLocaleString()+" Birr";
+
+    document.getElementById("homeIncome").innerText=
+    totalIncome.toLocaleString()+" Birr";
+
+    document.getElementById("homeOutput").innerText=
+    totalOutput.toLocaleString()+" Birr";
+
+    document.getElementById("balance").innerText=
+    "Income - Expenses = "+balance.toLocaleString()+" Birr";
+
+    document.getElementById("homeDate").innerText=
+    getEthiopianDate();
+
+    document.getElementById("currentDate").innerText=
+    "Today's Ethiopian Date: "+getEthiopianDate();
+
+}
+
+
+/* LOAD ALL */
+
+function loadAll(){
+
+    displayLoans();
+
+    displayIncome();
+
+    displayOutput();
+
+    updateDashboard();
+
+    document.getElementById("loanDatePreview").innerText=
+    "Today's Ethiopian Date: "+getEthiopianDate();
+
+    document.getElementById("incomeDatePreview").innerText=
+    "Today's Ethiopian Date: "+getEthiopianDate();
+
+    document.getElementById("outputDatePreview").innerText=
+    "Today's Ethiopian Date: "+getEthiopianDate();
+
+}
+
+
+/* CALCULATOR */
+
+let calcValue="";
+
+function calcInput(value){
+
+    calcValue+=value;
+
+    document.getElementById("calcDisplay").value=calcValue;
+
+}
+
+function clearCalc(){
+
+    calcValue="";
+
+    document.getElementById("calcDisplay").value="0";
+
+}
+
+function deleteCalc(){
+
+    calcValue=calcValue.slice(0,-1);
+
+    document.getElementById("calcDisplay").value=calcValue||"0";
+
+}
+
+function calculate(){
+
+    try{
+
+        if(!/^[0-9+\-*/%.() ]+$/.test(calcValue)){
+            throw Error();
+        }
+
+        let result=Function(
+            '"use strict";return ('+calcValue+')'
+        )();
+
+        if(!Number.isFinite(result)){
+            throw Error();
+        }
+
+        calcValue=String(Number(result.toFixed(8)));
+
+        document.getElementById("calcDisplay").value=calcValue;
+
+    }catch(e){
+
+        document.getElementById("calcDisplay").value="Error";
+
+        calcValue="";
+
+    }
+
+}
+
+
+/* START */
+
+</script>
+
+</body>
+</html>
